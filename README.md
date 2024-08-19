@@ -71,3 +71,12 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
+
+typeorm
+https://docs.nestjs.com/techniques/database
+
+
+npm install sqlite3 --save
+

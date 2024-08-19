@@ -1,11 +1,16 @@
-import { Controller, Get } from '@nestjs/common';
+import { ClassSerializerInterceptor, Controller, Get, UseInterceptors } from '@nestjs/common';
+import { UserService } from './user.service';
+import { User } from './user.entity';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
 
-    // @Get()
-    // getHello(): string {
-    //   return this.appService.getHello();
-    // }
+    constructor(private readonly userService: UserService) {}
+
+    @UseInterceptors(ClassSerializerInterceptor)
+    @Get()
+    async findAll(): Promise<User[]> {
+        return this.userService.findAll();
+    }
   
 }
