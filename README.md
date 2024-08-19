@@ -80,3 +80,7 @@ https://docs.nestjs.com/techniques/database
 
 npm install sqlite3 --save
 
+Swagger docs
+
+http://localhost:3000/api
+

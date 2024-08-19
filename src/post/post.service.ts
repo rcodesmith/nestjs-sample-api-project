@@ -32,6 +32,9 @@ export class PostService {
       }
     
       async remove(id: number): Promise<void> {
-        await this.postRepository.delete(id);
+        const result = await this.postRepository.delete(id);
+        if(result.affected === 0) {
+          throw new NotFoundException(`Post with id ${id} not found`);
+        }
       }
 }
