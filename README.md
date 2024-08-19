@@ -1,36 +1,48 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# Test API
 
 ## Description
 
+Test API project exposing users and posts endpoints. The project is built using NestJS framework, TypeORM,
+and uses PostgreSQL as a database.
+
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+It exposes Swagger documentation at http://localhost:3000/api
+
 ## Installation
+
+To install the project locally, you first need to install:
+
+- [https://nodejs.org/en](Node.js) version 16.3.1+
+- [https://nestjs.com/](Nest.js) version 10.4.4+
+
+Once you do, install packages:
 
 ```bash
 $ npm install
 ```
+
+## PostgreSQL Database
+
+Before running the app, you need a PostgreSQL database.
+
+### Creating PostgreSQL database in Neon
+
+One option is to host one in [https://neon.tech](Neon).
+
+### Database configuration
+
+After you create a PostgreSQL database, copy the connection URL:
+
+![alt text](image.png)
+
+And set it as an environment variable in a `.env.local` file which will get used when you run the app locally.  e.g.:
+
+```
+DATABASE_URL=postgresql://some_owner:UXAvZJJB6Hy2@ep-restless-violet-a5cwkpun.us-east-2.aws.neon.tech/test?sslmode=require
+```
+
+To run e2e tests, you also need to set the database URL which should be used for e2e tests in a `.env.test` file.
 
 ## Running the app
 
@@ -45,6 +57,26 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+The app will be running at http://localhost:3000
+
+## Run via Docker
+
+The project includes a Dockerfile to run the app in a container.
+
+To build the Docker image:
+
+```bash
+docker build -t 'testapi' .
+```
+
+To run the Docker container, exposed at port 3000:
+
+```bash
+docker run -p 3000:3000 -e 'DATABASE_URL=postgresql://some_owner:UXAvZJJB6Hy2@ep-restless-violet-a5cwkpun.us-east-2.aws.neon.tech/test?sslmode=require' testapi
+```
+
+The app will be running at http://localhost:3000
+
 ## Test
 
 ```bash
@@ -53,39 +85,12 @@ $ npm run test
 
 # e2e tests
 $ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
-## Support
+The e2e tests use the PostgreSQL database and depend on the database URL set in the `.env.test` file (see above).
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## API Documentation
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
-
-
-
-typeorm
-https://docs.nestjs.com/techniques/database
-
-
-npm install sqlite3 --save
-
-Swagger docs
+Once you're running the app locally, Swagger docs can be found at:
 
 http://localhost:3000/api
-
-
-
-
-npm run test:e2e
-
