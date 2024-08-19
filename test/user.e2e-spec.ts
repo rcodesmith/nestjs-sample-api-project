@@ -31,6 +31,18 @@ describe('UserController (e2e)', () => {
       .expect([]);
   });
 
+  it('/users (GET) w/existing', async () => {
+    const newUser = await userRepository.save({
+        name: 'Ron Smith',
+        email: 'ron@example.com',
+      });
+  
+    return request(app.getHttpServer())
+      .get('/users')
+      .expect(200)
+      .expect([newUser]);
+  });
+
   it('/users (POST)', () => {
     const newUser = {
       name: 'John Doe',
@@ -88,10 +100,14 @@ describe('UserController (e2e)', () => {
 
     await request(app.getHttpServer())
       .delete(`/users/${newUser.id}`)
-      .expect(200);
+      .expect(204);
+
+    await request(app.getHttpServer())
+      .get(`/users/${newUser.id}`)
+      .expect(404);
 
     return request(app.getHttpServer())
-      .get(`/users/${newUser.id}`)
+      .delete(`/users/${newUser.id}`)
       .expect(404);
   });
 

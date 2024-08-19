@@ -31,6 +31,19 @@ describe('PostController (e2e)', () => {
       .expect([]);
   });
 
+  it('/posts (GET) w/existing', async () => {
+    const newPost = await postRepository.save({
+      title: 'New Post',
+      content: 'This is a new post',
+      user_id: 2,
+    });
+  
+    return request(app.getHttpServer())
+      .get('/posts')
+      .expect(200)
+      .expect([newPost]);
+  });
+
   it('/posts (POST)', () => {
     const newPost = {
       title: 'Test Post',
@@ -93,10 +106,14 @@ describe('PostController (e2e)', () => {
 
     await request(app.getHttpServer())
       .delete(`/posts/${newPost.id}`)
-      .expect(200);
+      .expect(204);
+
+    await request(app.getHttpServer())
+      .get(`/posts/${newPost.id}`)
+      .expect(404);
 
     return request(app.getHttpServer())
-      .get(`/posts/${newPost.id}`)
+      .delete(`/posts/${newPost.id}`)
       .expect(404);
   });
 
