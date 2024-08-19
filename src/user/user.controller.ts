@@ -1,4 +1,4 @@
-import { ClassSerializerInterceptor, Controller, Get, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 
@@ -7,10 +7,29 @@ export class UserController {
 
     constructor(private readonly userService: UserService) {}
 
-    @UseInterceptors(ClassSerializerInterceptor)
     @Get()
-    async findAll(): Promise<User[]> {
-        return this.userService.findAll();
+    findAll(): Promise<User[]> {
+      return this.userService.findAll();
     }
   
+    @Get(':id')
+    findOne(@Param('id') id: string): Promise<User> {
+      return this.userService.findOne(+id);
+    }
+  
+    @Post()
+    create(@Body() user: User): Promise<User> {
+      return this.userService.create(user);
+    }
+  
+    @Put(':id')
+    update(@Param('id') id: string, @Body() user: User): Promise<User> {
+      return this.userService.update(+id, user);
+    }
+  
+    @Delete(':id')
+    remove(@Param('id') id: string): Promise<void> {
+      return this.userService.remove(+id);
+    }
+    
 }
