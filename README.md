@@ -95,15 +95,10 @@ Once you're running the app locally, Swagger docs can be found at:
 
 http://localhost:3000/api
 
-# Challenges Faced
-
-Generally, setting up a clean project with everything included took the longest time.
-
 ## Sqlite3
 
-One challenge was I initially started using sqlite3 as the database.  Everything worked fine when running locally and
-executing e2e tests, but when I tried running it as a Docker container, I got an error indicating that the sqlite3
-package wasn't found.
+I initially started using sqlite3 as the database.  Everything worked fine when running locally and
+executing e2e tests, but when I tried running it as a Docker container, I got an error indicating that the sqlite3 package wasn't found.
 
 I ran a shell in the container, and verified the NPM package was there, and sqlite3 binary was as well.
 It may have been an issue with my running the app on my M1 Mac.  I've run into this problem befor with native
@@ -111,8 +106,3 @@ packages and Docker on my M1 Mac.
 
 Since I didn't want to waste time on it, I switched to using PostgreSQL.
 
-## Environment Variables
-
-Using environment variables to load the database URL took some time to get right.  I used the Nest.js configuration
-module and dotenv to load the environment variables.  I explicitly configured which dotenv file to load via
-a test setup.ts and the app.module.ts file in the end.
